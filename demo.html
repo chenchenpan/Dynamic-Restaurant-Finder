@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Find SF Restaurant</title>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <style type="text/css">
+      div{margin:0; padding:0}
+      #container{width:1000px; height:500px;}
+      #container .box1{width:500px;height:500px;float:left;}
+      #container .box2{margin-left: 80px;width:380px;height:500px;float:left;}
+    </style>
+    <!-- 	<style>
+		h1 {
+		font-size: 50px;
+		font-family: Helvetica, sans-serif;
+		}
+		button#no-risk {
+		background-color: yellow;
+		}
+		button#low-risk {
+		background-color: orange;
+		}
+		button#moderate-risk {
+		background-color: pink;
+		}
+		button#high-risk {
+		background-color: salmon;
+		}		
+	        </style> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="map.js"></script>
+
+  </head>
+  <body>
+    <div id="container">
+      <div id="svg-col" class="box1">
+	<h1>Dynamic Restaurant Finder</h1>
+      </div>
+
+      <div class="box2">
+	<h1>Filters</h1>
+	<div class="row center">
+	  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+	    <input type="checkbox" class="js-switch" onchange="intersect(this)" value="0"> Intersect Circle A and Circle B<br><br>
+	    <p style="color:#FF0000">Radius A (miles)</p>
+	    <input id="radiusA" type="range" min="0.10" max="4.00" step="0.01" value="1.00" oninput="changeRadiusA(value)">
+	    <output for="radius" id="valueA">1.00 mi</output>
+	  </div>
+	  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+	    <p style="color:#0000FF">Radius B (miles)</p>
+	    <input id="radiusB" type="range" min="0.10" max="4.00" step="0.01" value="1.00" oninput="changeRadiusB(value)">
+	    <output for="radius" id="valueB">1.00 mi</output>
+	  </div><br>
+
+	  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+	    <p style="color:balck">Acceptable Lowest Review Score</p>
+	    <input id="scoreAcc" type="range" min="50" max="100" step="1" value="52" oninput="changeScore(value)">
+	    <output for="currScore" id="valueS">52</output>
+	  </div><br>
+	</div>
+      </div>      
+    </div>
+
+    <script>
+        // Load dataset
+        d3.csv("https://magrawala.github.io/cs448b-fa18/assets/a3/restaurant_scores.csv", function(d){return d;}).then(loadData);
+        // Set up size
+        var width = 750;
+        var height = 750;
+
+        // Set up projection that map is using
+        var projection = d3.geoMercator()
+          .center([-122.433701, 37.767683]) // San Francisco, roughly
+          .scale(225000)
+          .translate([width / 2, height / 2]);
+
+        // This is the mapping between <longitude, latitude> position to <x, y> pixel position on the map
+        // projection([lon, lat]) returns [x, y]
+
+        // Add an svg element to the DOM
+        var svg = d3.select("#svg-col").append("svg")
+          .attr("width", width)
+          .attr("height", height)
+        // .on("mouseover", mouseover)
+        // .on("mouseout", mouseout);		
+
+        // Add svg map at correct size, assumes map is saved in a subdirectory called "data"
+        svg.append("image")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("xlink:href", "sf-map.svg");
+    </script>
+  </body>
+  
+</html>
+
+

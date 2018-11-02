@@ -10,3 +10,4 @@ Upon opening the application, the default settings show all restaurants in San F
 There are 2 circles, red and blue, that can be dragged to anywhere on the screen and adjust in size. There is the option to show just the restaurants that are within the radius of point A and B (in the intersection of the two circles). 
 When the option is checked, the filter for the intersection of the two circles updates as the radius and location of the circles are adjusted as well.
 
+<div align="middle"><img src="https://github.com/chenchenpan/Dynamic-Restaurant-Finder/blob/master/map.png" width="80%"></div>
